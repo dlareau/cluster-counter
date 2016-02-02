@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cluster Counter</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="/static/counter.css" type="text/css" media="screen" />
+  <script>
+    function click_button() {
+      console.log("thing");
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+          document.getElementById("count").innerHTML = xhttp.responseText;
+        }
+      };
+      xhttp.open("GET", "/increment/", true);
+      xhttp.send();
+    }
+  </script>
+</head>
+<body>
+  <div id="maincontent" align="center">
+    <h1 id="count">{{ count }}</h1>
+    <h3>PRESS TO INCREMENT COUNTER</h3>
+    <div class="counterbutton">
+      <div>
+	<button onclick="click_button()" id="counter-button"></button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
