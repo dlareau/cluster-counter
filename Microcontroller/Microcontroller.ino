@@ -132,7 +132,58 @@ void setup () {
   }
   maxAll(max7219_reg_intensity, 0x0f & 0x0f);    // the first 0x0f is the value you can set
                                                   // range: 0x00 to 0x0f
-}  
+}
+
+byte char_val(char in_char){
+  switch(in_char) {
+    case 'A':
+      return 0x77;
+    case 'B':
+      return 0x6D;
+    case 'C':
+      return 0x4B;
+    case 'D':
+      return 0x7C;
+    case 'E':
+      return 0x6B;
+    case 'F':
+      return 0x63;
+    case 'G':
+      return 0x3F;
+    case 'H':
+      return 0x75;
+    case 'I':
+      return 0x04;
+    case 'J':
+      return 0x5C;
+    case 'L':
+      return 0x49;
+    case 'N':
+      return 0x64;
+    case 'O':
+      return 0x5F;
+    case 'P':
+      return 0x73;
+    case 'R':
+      return 0x60;
+    case 'S':
+      return 0x2F;
+    case 'T':
+      return 0x69;
+    case 'U':
+      return 0x5D;
+    case 'Y':
+      return 0x35;
+    default:
+      return 0b00000000;
+  }
+}
+
+void disp_word(char in_word[]){
+  for(int i = 0; i < 8; i++){
+    maxSingle(8-i, char_val(in_word[i]));
+  }
+}
 
 void disp_num(int num, int start_seg){
   if(start_seg == 9){
@@ -155,6 +206,13 @@ void loop () {
   int i = 0;
   fscanf (file, "%d", &i);
   fclose (file);
-  disp_num(i, 1);
+  
+  if(i % 1000 == 989){
+    disp_word(" CLUSTER");
+  } else if (i % 1000 == 990){
+    disp_word(" COUNTER");
+  } else {
+    disp_num(i, 1);
+  }
   delay(200);
 }
