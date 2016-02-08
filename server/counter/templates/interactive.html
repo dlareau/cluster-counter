@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="/static/counter.css" type="text/css" media="screen" />
   <script>
     function click_button() {
-      console.log("thing");
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -17,6 +16,17 @@
       xhttp.open("GET", "/increment/", true);
       xhttp.send();
     }
+    function update() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+          document.getElementById("count").innerHTML = xhttp.responseText;
+        }
+      };
+      xhttp.open("GET", "/query/", true);
+      xhttp.send();
+    }
+    setInterval(update, 333);
   </script>
 </head>
 <body>
