@@ -6,6 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="/static/counter.css" type="text/css" media="screen" />
   <script>
+    {% if button %}
     function click_button() {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
@@ -16,6 +17,7 @@
       xhttp.open("GET", "/increment/", true);
       xhttp.send();
     }
+    {% endif %}
     function update() {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
@@ -32,12 +34,16 @@
 <body>
   <div id="maincontent" align="center">
     <h1 id="count">{{ count }}</h1>
+    {% if button %}
     <h3>PRESS TO INCREMENT COUNTER</h3>
     <div class="counterbutton">
       <div>
 	<button onclick="click_button()" id="counter-button"></button>
       </div>
     </div>
+    {% else %}
+    <h3>IS THE CURRENT COUNTER VALUE <br> GO TO GATES 3000 TO INCREMENT</h3>
+    {% endif %}
   </div>
 </body>
 </html>
